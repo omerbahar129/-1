@@ -3,9 +3,11 @@ from fpdf import FPDF
 import tempfile
 import smtplib
 from email.message import EmailMessage
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)  # מאפשר בקשות בין דומיינים (CORS)
 
 def create_pdf(data):
     annual_revenue = float(data['annual_revenue'])
@@ -41,7 +43,7 @@ def send_email(to_email, pdf_path):
     msg['Subject'] = 'Your Solar ROI Report'
     msg['From'] = os.getenv('EMAIL_USER')
     msg['To'] = to_email
-    msg.set_content("Attached is your solar ROI report. Thank you for using our service!")
+    msg.set_content("Attached is your solar ROI report. Thank you!")
 
     with open(pdf_path, 'rb') as f:
         msg.add_attachment(f.read(), maintype='application', subtype='pdf', filename="solar_report.pdf")
