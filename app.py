@@ -20,7 +20,7 @@ def create_pdf(data):
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 16)
     pdf.set_text_color(0, 102, 204)
-    pdf.cell(0, 10, "דו"ח תשואה למערכת סולארית - HORIZON", 0, 1, 'C')
+    pdf.cell(0, 10, 'דו"ח תשואה למערכת סולארית - HORIZON', 0, 1, 'C')
     pdf.ln(10)
 
     pdf.set_text_color(0)
