@@ -41,7 +41,7 @@ def send_email(to_email, pdf_path):
     msg['Subject'] = 'הדו"ח שלך ממחשבון התשואה הסולארית'
     msg['From'] = os.getenv('EMAIL_USER')
     msg['To'] = to_email
-    msg.set_content("המצורף הוא דו"ח התשואה שלך. תודה שבחרת ב-HORIZON!")
+    msg.set_content('המצורף הוא דו"ח התשואה שלך. תודה שבחרת ב-HORIZON!')
 
     with open(pdf_path, 'rb') as f:
         msg.add_attachment(f.read(), maintype='application', subtype='pdf', filename="solar_report.pdf")
