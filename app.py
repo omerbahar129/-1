@@ -20,17 +20,17 @@ def create_pdf(data):
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 16)
     pdf.set_text_color(0, 102, 204)
-    pdf.cell(0, 10, 'דו"ח תשואה למערכת סולארית - HORIZON', 0, 1, 'C')
+    pdf.cell(0, 10, 'Solar ROI Report - HORIZON', 0, 1, 'C')
     pdf.ln(10)
 
     pdf.set_text_color(0)
     pdf.set_font("Helvetica", "", 12)
-    pdf.cell(0, 8, f"📊 גודל מערכת: {system_size} קילוואט", 0, 1, 'R')
-    pdf.cell(0, 8, f"💰 עלות מערכת: {purchase_price:,.2f} ₪", 0, 1, 'R')
-    pdf.cell(0, 8, f"📈 רווח שנתי נטו משוער: {net_profit:,.2f} ₪", 0, 1, 'R')
-    pdf.cell(0, 8, f"📉 תשואה שנתית: {return_rate:.2f}%", 0, 1, 'R')
-    pdf.cell(0, 8, f"⏳ החזר השקעה: {roi_years:.1f} שנים", 0, 1, 'R')
-    pdf.cell(0, 8, f"💼 רווח מצטבר ל-25 שנים: {total_25_years:,.2f} ₪", 0, 1, 'R')
+    pdf.cell(0, 8, f"System Size: {system_size} kW", 0, 1)
+    pdf.cell(0, 8, f"Purchase Price: {purchase_price:,.2f} NIS", 0, 1)
+    pdf.cell(0, 8, f"Annual Net Profit: {net_profit:,.2f} NIS", 0, 1)
+    pdf.cell(0, 8, f"Annual ROI: {return_rate:.2f}%", 0, 1)
+    pdf.cell(0, 8, f"ROI Period: {roi_years:.1f} years", 0, 1)
+    pdf.cell(0, 8, f"Estimated Total Profit (25 Years): {total_25_years:,.2f} NIS", 0, 1)
 
     tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     pdf.output(tmp_file.name)
@@ -38,10 +38,10 @@ def create_pdf(data):
 
 def send_email(to_email, pdf_path):
     msg = EmailMessage()
-    msg['Subject'] = 'הדו"ח שלך ממחשבון התשואה הסולארית'
+    msg['Subject'] = 'Your Solar ROI Report'
     msg['From'] = os.getenv('EMAIL_USER')
     msg['To'] = to_email
-    msg.set_content('המצורף הוא דו"ח התשואה שלך. תודה שבחרת ב-HORIZON!')
+    msg.set_content("Attached is your solar ROI report. Thank you for using our service!")
 
     with open(pdf_path, 'rb') as f:
         msg.add_attachment(f.read(), maintype='application', subtype='pdf', filename="solar_report.pdf")
